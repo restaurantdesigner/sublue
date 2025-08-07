@@ -193,13 +193,17 @@ let stockData = {};
   }
 
   const items = cart.map(item => ({
-  id: item.id, // 🔥 Добавлено!
+  id: item.id,
   name: item.name + (item.color ? ` - ${item.color}` : ""),
   description: item.description || "Producto Sublue",
   price: Number(item.price),
   quantity: item.qty || 1,
-  image: item.image
+  image: item.image,
+  color: item.color || 'N/A',             // Добавляем цвет
+  deliveryDate: item.delivery || 'N/A',  // Добавляем дату доставки
+  serialNumbers: item.serialNumbers || [] // Если есть массив серийных номеров (массив уникальных id для каждой единицы)
 }));
+
 
   // 🔎 Отладка
   console.log("🛒 Items enviados a Stripe:", items);
