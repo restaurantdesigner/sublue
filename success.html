@@ -91,11 +91,10 @@
         const deliveryDate = document.createElement('p');
         deliveryDate.textContent = `Fecha de entrega: ${item.price.product.metadata?.deliveryDate || 'N/A'}`;
 
-        // Спецификация номеров
-        const serialNumbersStr = item.price.product.metadata?.serialNumbers || '[]';
-        let serialNumbers;
+        // Парсим серийные номера
+        let serialNumbers = [];
         try {
-          serialNumbers = JSON.parse(serialNumbersStr);
+          serialNumbers = JSON.parse(item.price.product.metadata?.serialNumbers || '[]');
         } catch {
           serialNumbers = [];
         }
@@ -132,6 +131,7 @@
 }
 
 window.onload = loadSessionDetails;
+
 
 </script>
 <script>
