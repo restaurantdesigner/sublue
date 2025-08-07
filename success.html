@@ -29,7 +29,7 @@
       <a href="index.html#faq" class="hover:text-yellow-300 transition">FAQ</a>
     </nav>
   </header>
-
+<div id="orderProductsDetails" class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6"></div>
   <!-- Контент -->
   <div class="max-w-4xl mx-auto px-6 py-12 text-center">
     <h1 class="text-3xl md:text-5xl font-bold font-['Playfair_Display'] text-green-600 mb-6">¡Gracias por tu compra!</h1>
@@ -54,42 +54,85 @@
 
 <script>
   async function loadSessionDetails() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const sessionId = urlParams.get('session_id');
+  const urlParams = new URLSearchParams(window.location.search);
+  const sessionId = urlParams.get('session_id');
+  if (!sessionId) return;
 
-    if (!sessionId) {
-      alert('No session ID found');
-      return;
+  try {
+    const response = await fetch(`https://sublue-backend.onrender.com/checkout-session/${sessionId}`);
+    const session = await response.json();
+
+    const container = document.getElementById('orderProductsDetails');
+    container.innerHTML = '';
+
+    if (session.line_items && session.line_items.data.length) {
+      session.line_items.data.forEach(item => {
+        const div = document.createElement('div');
+        div.classList.add('border', 'rounded-lg', 'shadow-lg', 'p-4', 'bg-white');
+
+        const img = document.createElement('img');
+        img.src = item.price.product.images[0] || '';
+        img.alt = item.description || 'Producto';
+        img.classList.add('w-full', 'h-48', 'object-cover', 'mb-4', 'rounded');
+
+        const name = document.createElement('h3');
+        name.textContent = item.description;
+        name.classList.add('font-bold', 'text-lg', 'mb-2');
+
+        const color = document.createElement('p');
+        color.textContent = `Color: ${item.price.product.metadata?.color || 'N/A'}`;
+
+        const price = document.createElement('p');
+        price.textContent = `Precio unitario: €${(item.price.unit_amount / 100).toFixed(2)}`;
+
+        const qty = document.createElement('p');
+        qty.textContent = `Cantidad: ${item.quantity}`;
+
+        const deliveryDate = document.createElement('p');
+        deliveryDate.textContent = `Fecha de entrega: ${item.price.product.metadata?.deliveryDate || 'N/A'}`;
+
+        // Спецификация номеров
+        const serialNumbersStr = item.price.product.metadata?.serialNumbers || '[]';
+        let serialNumbers;
+        try {
+          serialNumbers = JSON.parse(serialNumbersStr);
+        } catch {
+          serialNumbers = [];
+        }
+
+        const serialNumbersList = document.createElement('ul');
+        serialNumbersList.textContent = 'Números de serie:';
+        serialNumbersList.classList.add('list-disc', 'list-inside');
+
+        serialNumbers.forEach((num, idx) => {
+          const li = document.createElement('li');
+          li.textContent = `#${idx + 1}: ${num}`;
+          serialNumbersList.appendChild(li);
+        });
+
+        div.appendChild(img);
+        div.appendChild(name);
+        div.appendChild(color);
+        div.appendChild(price);
+        div.appendChild(qty);
+        div.appendChild(deliveryDate);
+        div.appendChild(serialNumbersList);
+
+        container.appendChild(div);
+      });
+    } else {
+      container.textContent = 'No se encontraron productos.';
     }
 
-    try {
-      const response = await fetch(`https://sublue-backend.onrender.com/checkout-session/${sessionId}`);
+    // Можно обновить остальные поля email, shipping и т.п. здесь тоже
 
-      const session = await response.json();
-
-      document.getElementById('orderEmail').textContent = session.customer_details?.email || 'N/A';
-document.getElementById('orderShipping').textContent = session.customer_details?.address?.country || 'N/A';
-
-const productsListEl = document.getElementById('orderProductsList');
-productsListEl.innerHTML = '';
-
-if (session.line_items && session.line_items.data.length) {
-  session.line_items.data.forEach(item => {
-    const li = document.createElement('li');
-    li.textContent = `${item.description} — Количество: ${item.quantity}`;
-    productsListEl.appendChild(li);
-  });
-} else {
-  productsListEl.textContent = 'No products found';
+  } catch (err) {
+    console.error('Error loading session:', err);
+  }
 }
 
-    } catch (err) {
-      console.error('Ошибка при получении сессии:', err);
-      alert('Ошибка загрузки деталей заказа');
-    }
-  }
+window.onload = loadSessionDetails;
 
-  window.onload = loadSessionDetails;
 </script>
 <script>
   // Очищаем корзину после успешной оплаты
