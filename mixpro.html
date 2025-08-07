@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://js.stripe.com/v3/"></script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Alquiler y venta de scooters submarinos Sublue en España. Entrega rápida, asistencia personalizada y productos originales.">
+  <link rel="icon" href="img/favi.png" type="image/png">
+  <title>Scooters Sublue | Alquiler y Venta</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    const productImagesByColor = {
+      black: [
+        "img/products/Mixpro/black/black1.webp",
+        "img/products/Mixpro/black/black2.webp",
+        "img/products/Mixpro/black/black3.webp",
+        "img/products/Mixpro/black/black4.webp",
+        "img/products/Mixpro/black/black5.webp",
+        "img/products/Mixpro/black/black6.webp",
+        "img/products/Mixpro/black/black7.webp",
+        "img/products/Mixpro/black/black8.webp",
+        "img/products/Mixpro/black/black9.webp",
+        "img/products/Mixpro/black/black10.webp",
+        "img/products/Mixpro/black/black11.webp",
+        "img/products/Mixpro/black/black12.webp",
+        "img/products/Mixpro/black/black13.webp",
+        "img/products/Mixpro/black/black14.webp",
+        "img/products/Mixpro/black/black15.webp",
+        "img/products/Mixpro/black/black16.webp",
+        "img/products/Mixpro/black/black17.webp",
+        "img/products/Mixpro/black/black18.webp"
+      ],
+      white: [
+        "img/products/Mixpro/white/white1.webp",
+        "img/products/Mixpro/white/white2.webp",
+        "img/products/Mixpro/white/white3.webp",
+        "img/products/Mixpro/white/white4.webp",
+        "img/products/Mixpro/white/white5.webp",
+        "img/products/Mixpro/white/white6.webp",
+        "img/products/Mixpro/white/white7.webp",
+        "img/products/Mixpro/white/white8.webp",
+        "img/products/Mixpro/white/white9.webp",
+        "img/products/Mixpro/white/white10.webp",
+        "img/products/Mixpro/white/white11.webp",
+        "img/products/Mixpro/white/white12.webp",
+        "img/products/Mixpro/white/white13.webp",
+        "img/products/Mixpro/white/white14.webp",
+        "img/products/Mixpro/white/white15.webp",
+        "img/products/Mixpro/white/white16.webp",
+        "img/products/Mixpro/white/white17.webp",
+        "img/products/Mixpro/white/white18.webp",
+        "img/products/Mixpro/white/white19.webp",
+        "img/products/Mixpro/white/white20.webp",
+        "img/products/Mixpro/white/white21.webp",
+        "img/products/Mixpro/white/white22.webp",
+        "img/products/Mixpro/white/white23.webp",
+        "img/products/Mixpro/white/white24.webp",
+        "img/products/Mixpro/white/white25.webp"
+      ]
+    };
+
+    
+
+    function handleTouchStart(e) {
+      startX = e.touches[0].clientX;
+    }
+
+    function handleTouchEnd(e) {
+      const endX = e.changedTouches[0].clientX;
+      const diff = endX - startX;
+
+      const images = productImagesByColor[currentColor];
+      if (Math.abs(diff) > 50) {
+        if (diff < 0 && currentIndex < images.length - 1) {
+          currentIndex++;
+        } else if (diff > 0 && currentIndex > 0) {
+          currentIndex--;
+        }
+        document.getElementById("mainImage").src = images[currentIndex];
+      }
+    }
+
+   let selectedColor = 'MixPro Black';
+let currentColor = 'black';
+let currentIndex = 0;
+let startX = 0;
+
+function setColor(color) {
+  currentColor = color;
+  currentIndex = 0;
+  const images = productImagesByColor[color];
+  const mainImage = document.getElementById("mainImage");
+  const thumbnails = document.getElementById("thumbnailContainer");
+
+  selectedColor = color === 'black' ? 'MixPro Black' : 'MixPro White';
+  document.getElementById("colorName").textContent = selectedColor;
+
+  mainImage.src = images[0];
+  thumbnails.innerHTML = "";
+  images.forEach((img, index) => {
+    const thumb = document.createElement("img");
+    thumb.src = img;
+    thumb.className = "w-14 h-14 object-cover border rounded cursor-pointer hover:ring-2 hover:ring-blue-500";
+    thumb.onmouseenter = () => {
+      mainImage.src = img;
+      currentIndex = index;
+    };
+    thumbnails.appendChild(thumb);
+  });
+
+  document.getElementById("colorBlack").classList.remove("ring-2", "ring-blue-500");
+  document.getElementById("colorWhite").classList.remove("ring-2", "ring-blue-500");
+
+  if (color === "black") {
+    document.getElementById("colorBlack").classList.add("ring-2", "ring-blue-500");
+  } else {
+    document.getElementById("colorWhite").classList.add("ring-2", "ring-blue-500");
+  }
+    // ✅ ДОБАВЬ ЭТУ СТРОКУ:
+  updateStockInfo();
+
+}
+
+function updateStockInfo() {
+  const productId = "mixpro_" + currentColor;
+  const stock = stockData[productId] || 0;
+
+  const stockText = document.querySelector(".stock-info");
+  if (stockText) {
+    stockText.textContent = `En stock: ${stock} unidades`;
+  }
+
+  // 🔒 ограничение ввода в input
+  const input = document.getElementById("quantityInput");
+  if (input) {
+    input.max = stock;
+    if (parseInt(input.value) > stock) {
+      input.value = stock;
+    }
+  }
+}
+
+// 🔁 Загружаем данные со склада из Google Таблицы без кэша
+async function loadStock() {
+  const response = await fetch(
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vT3_8DRtvqhfTcNQq5cgiAAZSf7lKv7N2Q-B4XbAJwe_hRz4W8CET4LPn16Qo4oZ1M_RF_XfW3JmTl-/pub?gid=0&single=true&output=csv&t=" + Date.now(),
+    {
+      cache: 'no-store',
+      headers: {
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache'
+      }
+    }
+  );
+
+  const csvText = await response.text();
+  const lines = csvText.split('\n').slice(1); // Пропускаем заголовок
+
+  lines.forEach(line => {
+    const cells = line.split(',');
+    const id = cells[0]?.trim();
+    const stock = parseInt(cells[4]?.trim()); // Колонка Stock = index 4
+
+    if (id && !isNaN(stock)) {
+      stockData[id] = stock;
+    }
+  });
+
+  updateStockInfo?.();         // если нужно на этой странице
+  validateCartAgainstStock?.(); // если на странице корзины
+}
+
+
+
+
+
+
+ 
+
+    window.onload = async () => {
+  await loadStock();                         // 🟢 Загружаем таблицу
+  setColor('black');                         // 🟢 Ставим начальный цвет
+  updateCartCount();                         // 🟢 Обновляем количество в корзине
+  updateStockInfo();                         // 🟢 Показываем наличие на складе
+  document.querySelector('.delivery-date').textContent = getDeliveryDate();
+
+  const img = document.getElementById("mainImage");
+  img.addEventListener("touchstart", handleTouchStart, false);
+  img.addEventListener("touchend", handleTouchEnd, false);
+};
+
+
+  </script>
+
+
+
+
+
+<style>
+@media (min-width: 1024px) {
+  .site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    padding: 0 60px;
+    background: rgba(0, 0, 0, 0.3); /* полупрозрачный фон */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 1000;
+  }
+
+  .site-header .logo {
+    width: 140px;
+    max-width: 100%;
+  }
+
+  .site-header nav {
+    display: flex;
+    gap: 40px;
+  }
+
+  .site-header nav a {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: white;
+    opacity: 0.7;
+    text-decoration: none;
+    transition: opacity 0.3s;
+  }
+
+  .site-header nav a:hover {
+    opacity: 1;
+  }
+}
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: rgba(0, 0, 0, 0.8); /* Полупрозрачный тёмный */
+  backdrop-filter: blur(10px);    /* Блюр заднего фона */
+  -webkit-backdrop-filter: blur(10px); /* Для Safari */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Белая линия снизу */
+  z-index: 1000; /* Поверх видео и контента */
+}
+
+
+
+
+
+
+
+
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body class="bg-white text-gray-800">
+<header class="site-header px-4 py-2 flex justify-between items-center bg-gray-900 bg-opacity-90">
+
+  <!-- ЛОГО СЛЕВА -->
+  <div class="flex items-center">
+    <a href="index.html">
+      <img src="img/sublue.png" alt="SUBI Logo" class="logo w-28 md:w-32 lg:w-36" />
+    </a>
+  </div>
+
+
+  <!-- МЕНЮ СПРАВА: только на десктопе -->
+  <nav class="hidden md:flex space-x-8 text-white font-semibold text-sm tracking-widest uppercase">
+    <a href="index.html#catalog" class="hover:text-yellow-300 transition">Modelos</a>
+    <a href="#alquiler" class="hover:text-yellow-300 transition">Alquiler</a>
+    <a href="#contact" class="hover:text-yellow-300 transition">Contacto</a>
+    <a href="#nosotros" class="hover:text-yellow-300 transition">Sobre nosotros</a>
+    <a href="#faq" class="hover:text-yellow-300 transition">FAQ</a>
+  </nav>
+<!-- Иконка корзины -->
+<a href="cart.html" class="relative">
+  <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-white hover:text-yellow-300 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.5 6h13l-1.5-6M9 21h0M15 21h0" />
+  </svg>
+  <span id="cartCount" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">0</span>
+</a>
+
+  
+</header>
+  <div class="max-w-7xl mx-auto px-4 py-6 pt-24">
+
+    <div class="flex flex-col lg:flex-row gap-6">
+      <div class="lg:w-1/2">
+        <div class="flex flex-col lg:flex-row gap-3">
+          <div id="thumbnailContainer" class="flex flex-row lg:flex-col gap-2 lg:mr-2 overflow-x-auto"></div>
+          <div class="flex-1">
+            <img id="mainImage" src="" alt="Main Product Image" class="w-full h-auto rounded shadow">
+            <p class="text-center text-sm mt-2 text-blue-600 underline cursor-pointer">Click to see full view</p>
+          </div>
+        </div>
+      </div>
+      <div class="lg:w-1/2 pb-28 lg:pb-0">
+        <h1 class="text-base sm:text-lg md:text-xl font-semibold mb-2 leading-snug">Mix Pro Dual Motor Underwater Scooter, 2 Speed Modes, 40 m Depth with Camera Mount and Low Battery Alarm for Pool</h1>
+        <div class="flex items-center mt-1">
+          <span class="text-yellow-500 text-base">★★★★☆</span>
+          <span class="text-blue-600 ml-2 text-sm">23 ratings</span>
+        </div>
+        <div class="text-2xl sm:text-3xl font-bold mt-2">€999<sup class="text-base sm:text-lg">.00</sup></div>
+
+        <div class="mt-4">
+          <span class="font-semibold text-sm">Colour Name:</span>
+          <span id="colorName" class="text-sm ml-1">MixPro Black</span>
+        </div>
+        <div class="flex gap-3 mt-2">
+          <div id="colorBlack" onclick="setColor('black')" class="w-20 h-16 border rounded cursor-pointer ring-2 ring-blue-500">
+            <img src="img/products/Mixpro/black/black1.webp" class="w-full h-full object-cover rounded" alt="Black">
+            <p class="text-center text-xs font-semibold">Black</p>
+          </div>
+          <div id="colorWhite" onclick="setColor('white')" class="w-20 h-16 border rounded cursor-pointer">
+            <img src="img/products/Mixpro/white/white1.webp" class="w-full h-full object-cover rounded" alt="White">
+            <p class="text-center text-xs font-semibold">White</p>
+          </div>
+          <!-- Выбор количества -->
+<div class="mt-4">
+  <label for="quantityInput" class="font-semibold text-sm block mb-1">Cantidad:</label>
+  <input type="number" id="quantityInput" value="1" min="1" class="border rounded px-2 py-1 w-24" />
+</div>
+
+
+
+        </div>
+        <p id="deliveryEstimate" class="text-green-600 font-semibold mt-4">
+  Entrega estimada: <span class="delivery-date">...</span>
+</p>
+<p id="stockInfo" class="text-sm mt-2 text-gray-700 font-semibold"></p>
+
+
+        <h2 class="text-2xl font-bold mb-4">Funciones y características del producto</h2>
+  <ul class="list-disc list-inside space-y-3 text-base leading-relaxed text-gray-800">
+    <li><strong>Potentes Motores Duales</strong> – Dos modos de velocidad [1.8 m/s (4.0 mph) y 1.2 m/s (2.7 mph)] que se pueden cambiar fácilmente para adaptarse a diferentes necesidades.</li>
+    <li><strong>Módulo Flotador Removible</strong> – Proporciona flotabilidad positiva para aguas poco profundas; quítalo para bucear en profundidad hasta 40 m (131.2 ft).</li>
+    <li><strong>Sistema de Gestión de Batería BMS</strong> – Con una capacidad de 11000 mAh, 60 minutos de tiempo de funcionamiento, carga rápida de 2 horas, cambio de batería en 10 s e indicadores multicolores para velocidad, vida de la batería y alertas de batería baja.</li>
+    <li><strong>Diseño de Hélice Desmontable</strong> – Cuenta con una protección para seguridad y fácil mantenimiento.</li>
+    <li><strong>Construcción Premium y Diseño Seguro</strong> – Materiales de alta gama con un acabado de calidad automotriz, con un mecanismo de bloqueo de seguridad para mayor protección.</li>
+    <li><strong>Soporte para Fotografía Submarina</strong> – Compatible con cámaras de acción, la funda impermeable para teléfono SUBLUE y equipo de iluminación, permitiéndote capturar impresionantes momentos bajo el agua.</li>
+    <li><strong>Ligero y Portátil</strong> – Pesa solo 3.55 kg (7.8 lb), cabe fácilmente en una mochila para llevar cómodamente y está aprobado para viajes en avión.</li>
+  </ul>
+
+        <button onclick="addToCart(event)" class="mt-4 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-3 px-4 w-full rounded shadow">
+  Add to Cart
+</button>
+
+
+        <div class="mt-4 flex flex-col sm:flex-row gap-3">
+          <button onclick="payWithStripe()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 w-full rounded shadow">
+  Pay with Card
+</button>
+
+          <button class="bg-gray-800 hover:bg-black text-white font-semibold py-3 px-4 w-full rounded shadow">
+            PayPal
+          </button>
+        </div>
+        <!-- 📦 Accesorios adicionales -->
+<div id="accesoriosSection" class="mt-6 border-t pt-6 transition-all duration-500">
+  <h2 class="text-lg font-semibold mb-4">Combina bien con:</h2>
+
+  <div class="space-y-4">
+    <!-- Accesorio 1 -->
+    <label class="flex items-center space-x-4">
+      <input type="checkbox" class="form-checkbox accent-blue-600"
+        onchange="toggleAccessory(this, 21900, 'Batería Mix / MixPro', 'img/products/accessories/battery.webp')" />
+      <img src="img/products/accessories/battery.webp" alt="Batería" class="w-14 h-14 rounded object-cover" />
+      <div>
+        <p class="font-semibold text-sm">Batería Mix / MixPro</p>
+        <p class="text-gray-700 text-sm">€219,00</p>
+      </div>
+    </label>
+
+    <!-- Accesorio 2 -->
+    <label class="flex items-center space-x-4">
+      <input type="checkbox" class="form-checkbox accent-blue-600"
+        onchange="toggleAccessory(this, 9900, 'Mochila Impermeable 30L', 'img/products/accessories/backpack.webp')" />
+      <img src="img/products/accessories/backpack.webp" alt="Mochila" class="w-14 h-14 rounded object-cover" />
+      <div>
+        <p class="font-semibold text-sm">Mochila Impermeable 30L</p>
+        <p class="text-gray-700 text-sm">€99,00</p>
+      </div>
+    </label>
+
+    <!-- Accesorio 3 -->
+    <label class="flex items-center space-x-4">
+      <input type="checkbox" class="form-checkbox accent-blue-600"
+        onchange="toggleAccessory(this, 13900, 'Funda impermeable H1+', 'img/products/accessories/case.webp')" />
+      <img src="img/products/accessories/case.webp" alt="Funda" class="w-14 h-14 rounded object-cover" />
+      <div>
+        <p class="font-semibold text-sm">Funda impermeable H1+</p>
+        <p class="text-red-500 text-sm">€139,00 <span class="line-through text-gray-500 text-xs">€179,00</span></p>
+      </div>
+    </label>
+  </div>
+
+  <!-- Total -->
+  <div class="mt-4 text-right">
+    <p class="font-semibold text-base">Total adicional: <span id="accesoriosTotal">€0,00</span></p>
+  </div>
+  
+</div>
+
+      </div>
+      
+    </div>
+  </div>
+  
+
+
+
+  <div id="paymentModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+  <div class="bg-white p-6 rounded-lg shadow max-w-sm w-full">
+    <h2 class="text-lg font-semibold mb-4">Enter your email to pay</h2>
+    <input id="emailInput" type="email" placeholder="you@example.com" class="w-full border p-2 rounded mb-4" />
+    <button onclick="submitPayment()" class="bg-blue-600 text-white w-full py-2 rounded hover:bg-blue-700">Pay €999.00</button>
+    <button onclick="closePaymentModal()" class="mt-3 text-sm text-gray-500 underline">Cancel</button>
+  </div>
+</div>
+
+<!-- Уведомление -->
+<div id="toast" class="fixed bottom-5 right-5 bg-green-600 text-white text-sm px-4 py-2 rounded shadow-lg hidden z-50">
+  Añadido al carrito
+</div>
+<div class="video-container mt-4">
+  <iframe
+    width="560" height="315"
+    src="https://www.youtube.com/embed/xnssTxZEt9A"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+  ></iframe>
+</div>
+<style>
+  .video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* Соотношение сторон 16:9 */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+  }
+  .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+<footer class="bg-gray-900 text-white px-6 pt-0 pb-10 z-10 overflow-hidden">
+
+  
+
+  <!-- Контент футера -->
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
+    
+    <!-- Контакты -->
+    <!-- Контакты -->
+<div id="contact" class="space-y-2">
+  <h2 class="text-xl font-semibold">Contacto</h2>
+  <p class="text-sm">Av. de Andalucía, 3, 29751 Algarrobo-Costa, Málaga</p>
+  <p class="text-sm">
+    Tel: <a href="tel:+34692828614" class="hover:underline">+34 692 828 614</a>, 
+    <a href="tel:+34614140871" class="hover:underline">+34 614 140 871</a>
+  </p>
+  <p class="text-sm">Email: <a href="mailto:subluespana@gmail.com" class="hover:underline">subluespana@gmail.com</a></p>
+</div>
+
+
+    <!-- Кнопки -->
+    <div class="space-y-2">
+      <h2 class="text-xl font-semibold">Información</h2>
+      <div class="text-sm text-white">
+  <a href="#" onclick="document.getElementById('modalCondicionesAlquiler').classList.remove('hidden')">Condiciones de alquiler</a>
+  <a href="#" onclick="document.getElementById('modalCondicionesVenta').classList.remove('hidden')" class="ml-4">Condiciones de venta</a>
+  <a href="#" onclick="document.getElementById('modalCondicionesEntrega').classList.remove('hidden')" class="ml-4">Condiciones de entrega</a>
+</div>
+
+    </div>
+  </div>
+
+  <!-- Нижняя часть -->
+  <div class="max-w-7xl mx-auto mt-10 border-t border-gray-700 pt-6 flex flex-col items-center space-y-4 text-sm text-gray-400">
+    
+    <p>
+      Hecho por 
+      <a href="https://3dna.es" class="underline hover:text-white transition" target="_blank">3DNA.es</a> – Agencia Creativa
+    </p>
+
+    <!-- Иконки соцсетей -->
+    <div class="flex gap-6">
+      <!-- Facebook -->
+      <a href="https://www.facebook.com/sublue_spain" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="Facebook">
+        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+          <path d="M22 12a10 10 0 10-11.5 9.9v-7H8v-3h2.5V9.2c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.3c-1.3 0-1.7.8-1.7 1.6v1.9h3l-.5 3h-2.5v7A10 10 0 0022 12z"/>
+        </svg>
+      </a>
+
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/sublue_spain" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="Instagram">
+        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+          <path d="M7 2C4.8 2 3 3.8 3 6v12c0 2.2 1.8 4 4 4h10c2.2 0 4-1.8 4-4V6c0-2.2-1.8-4-4-4H7zm10 2c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H7c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2h10zm-5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm4.8-.8a1.2 1.2 0 11-2.4 0 1.2 1.2 0 012.4 0z"/>
+        </svg>
+      </a>
+
+      <!-- WhatsApp -->
+      <a href="https://wa.me/34692828614" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="WhatsApp">
+        <svg class="w-6 h-6 fill-current" viewBox="0 0 32 32">
+          <path d="M16 2.7A13.3 13.3 0 002.7 16c0 2.3.6 4.4 1.7 6.3L2 30l7.9-2.4a13.2 13.2 0 006.1 1.5A13.3 13.3 0 0016 2.7zm0 24.3c-1.9 0-3.8-.5-5.4-1.4l-.4-.2-4.7 1.4 1.5-4.6-.3-.4a11 11 0 1119.2-6.1 11 11 0 01-9.9 11.3zm6-8.3c-.3-.1-1.7-.9-2-1-.3-.1-.5-.2-.7.2s-.8 1-1 1.2c-.2.1-.4.1-.7 0-.3-.1-1.3-.5-2.5-1.6a9.3 9.3 0 01-1.7-2.2c-.2-.3 0-.5.1-.7l.4-.6c.1-.2.2-.4.3-.6.1-.2 0-.5 0-.7 0-.2-.7-1.8-1-2.5-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.7.3a3 3 0 00-1 2.2 5.2 5.2 0 001.1 2.6 11 11 0 004.7 4.1c1.8.7 2.2.6 2.6.5.4-.1 1.3-.6 1.5-1.1.2-.5.2-1 .1-1.2z"/>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Логотип -->
+    <img src="/img/lg.png" alt="3DNA Logo" class="h-6 grayscale hover:grayscale-0 transition" />
+  </div>
+
+</footer>
+
+<!-- Модальное окно: Condiciones de alquiler -->
+<div id="modalCondicionesAlquiler" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 hidden">
+  <div class="bg-white w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-xl shadow-lg p-6 relative">
+    
+    <!-- Кнопка закрытия -->
+    <button onclick="document.getElementById('modalCondicionesAlquiler').classList.add('hidden')" 
+            class="absolute top-4 right-4 text-gray-500 hover:text-black text-2xl">&times;</button>
+
+    <!-- Заголовок -->
+    <h2 class="text-2xl font-bold mb-4">Condiciones Generales de Alquiler de Equipos Recreativos</h2>
+    <p class="mb-4">Torre del Mar, provincia de Málaga</p>
+
+    <!-- Секции -->
+    <h3 class="font-semibold mt-6 mb-2">1. Objeto del Alquiler</h3>
+    <p>El arrendador pone a disposición del arrendatario uno o varios equipos recreativos para su uso temporal, incluyendo, pero no limitándose a: dispositivos subacuáticos, cámaras deportivas, gafas de realidad virtual, y otros accesorios. Todos los equipos se entregan con sus componentes correspondientes y en condiciones óptimas de funcionamiento.</p>
+
+    <h3 class="font-semibold mt-6 mb-2">2. Duración del Alquiler</h3>
+    <p>El periodo de alquiler comienza y finaliza en las fechas y horas acordadas entre las partes. El arrendatario se compromete a devolver el equipo en la fecha y hora pactadas. Cualquier retraso en la devolución podrá generar una penalización proporcional al tiempo excedido.</p>
+
+    <h3 class="font-semibold mt-6 mb-2">3. Condiciones de Entrega y Devolución</h3>
+    <ul class="list-disc ml-6">
+      <li>Entrega y recogida en lugar acordado</li>
+      <li>Verificación del documento de identidad</li>
+      <li>Registro visual del equipo</li>
+      <li>Explicación de uso y normas</li>
+    </ul>
+    <p>A la devolución, el equipo será inspeccionado visualmente. Cualquier daño será documentado y firmado por ambas partes.</p>
+
+    <h3 class="font-semibold mt-6 mb-2">4. Responsabilidad del Arrendatario</h3>
+    <ul class="list-disc ml-6">
+      <li>Uso correcto y conforme a instrucciones</li>
+      <li>Prohibida la cesión a terceros</li>
+      <li>No modificar ni manipular el equipo</li>
+      <li>Mantener el equipo en lugar seguro</li>
+    </ul>
+
+    <h3 class="font-semibold mt-6 mb-2">5. Condiciones de Uso</h3>
+    <ul class="list-disc ml-6">
+      <li>Uso en zonas seguras autorizadas</li>
+      <li>Prohibido bajo efectos de alcohol o drogas</li>
+      <li>Sólo mayores de edad (18+)</li>
+      <li>Uso obligatorio de protección si aplica</li>
+      <li>Prohibido en condiciones peligrosas</li>
+    </ul>
+
+    <h3 class="font-semibold mt-6 mb-2">6. Depósito de Garantía</h3>
+    <p>Se solicitará un depósito reembolsable al momento del alquiler. Se devolverá si no hay daños ni incumplimientos.</p>
+
+    <h3 class="font-semibold mt-6 mb-2">7. Identificación y Registro</h3>
+    <p>El arrendador podrá registrar visualmente al arrendatario y al equipo para garantizar la trazabilidad.</p>
+
+    <h3 class="font-semibold mt-6 mb-2">8. Protección de Datos</h3>
+    <p>Los datos serán tratados con confidencialidad y sólo para fines administrativos del contrato.</p>
+
+    <h3 class="font-semibold mt-6 mb-2">9. Resolución de Conflictos</h3>
+    <p>Las partes intentarán resolver conflictos de forma amistosa. Si no es posible, se acudirá a los tribunales de Vélez-Málaga.</p>
+
+    <h3 class="font-semibold mt-6 mb-2">10. Declaración Final</h3>
+    <p>El arrendatario declara que ha leído, entendido y aceptado todas las condiciones descritas.</p>
+
+    <div class="mt-8">
+      <p class="font-semibold">FIRMAS</p>
+      <p>Arrendador: Firma: ____________________  Fecha: ______________</p>
+      <p>Arrendatario: Firma: ____________________  Fecha: ______________</p>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Модальное окно: Condiciones de venta -->
+<div id="modalVenta" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 hidden">
+  <div class="bg-white rounded-lg shadow-xl max-w-lg w-full p-6 relative">
+    <button onclick="document.getElementById('modalVenta').classList.add('hidden')" 
+            class="absolute top-2 right-2 text-gray-500 hover:text-black text-2xl">&times;</button>
+    <h2 class="text-xl font-semibold mb-4">Condiciones de venta</h2>
+    <p class="text-gray-700 text-sm">
+      Aquí puedes añadir tus condiciones de venta detalladas...
+    </p>
+  </div>
+</div>
+
+<!-- Модальное окно: Condiciones de entrega -->
+<div id="modalEntrega" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 hidden">
+  <div class="bg-white rounded-lg shadow-xl max-w-lg w-full p-6 relative">
+    <button onclick="document.getElementById('modalEntrega').classList.add('hidden')" 
+            class="absolute top-2 right-2 text-gray-500 hover:text-black text-2xl">&times;</button>
+    <h2 class="text-xl font-semibold mb-4">Condiciones de entrega</h2>
+    <p class="text-gray-700 text-sm">
+      Aquí puedes añadir tus condiciones de entrega detalladas...
+    </p>
+  </div>
+</div>
+
+  <script>
+let stockData = {};
+let accesoriosSeleccionados = [];
+
+
+
+
+// Добавление товара в корзину с проверкой остатков
+function addToCart(event) {
+  event.stopPropagation();
+
+  const quantity = parseInt(document.getElementById("quantityInput").value) || 1;
+  const mainImage = document.getElementById("mainImage").src;
+
+  const mainItem = {
+    id: "mixpro_" + currentColor,
+    name: "Sublue Mix Pro",
+    color: selectedColor,
+    price: 999.00,
+    qty: quantity,
+    image: mainImage,
+    delivery: getDeliveryDate()
+  };
+
+  
+
+ let cart = JSON.parse(localStorage.getItem("cart")) || [];
+const existing = cart.find(p =>
+  p.id === mainItem.id &&
+  p.color === mainItem.color &&
+  p.image === mainItem.image
+);
+
+const alreadyInCart = existing ? existing.qty : 0;
+const totalRequested = alreadyInCart + quantity;
+const availableStock = stockData[mainItem.id] || 0;
+
+if (totalRequested > availableStock) {
+  alert(`Lo sentimos, solo quedan ${availableStock} unidades disponibles en stock. Ya tienes ${alreadyInCart} en el carrito.`);
+  return;
+}
+
+if (existing) {
+  existing.qty += quantity;
+} else {
+  cart.push(mainItem);
+}
+
+accesoriosSeleccionados.forEach(accessory => {
+  const found = cart.find(p => p.id === accessory.id);
+  if (!found) {
+    cart.push({ ...accessory });
+  }
+});
+
+localStorage.setItem("cart", JSON.stringify(cart));
+updateCartCount();
+showToast("Añadido al carrito");
+
+
+  accesoriosSeleccionados.forEach(accessory => {
+    const found = cart.find(p => p.id === accessory.id);
+    if (!found) {
+      cart.push({ ...accessory });
+    }
+  });
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCartCount();
+  showToast("Añadido al carrito");
+}
+
+// Оплата
+async function payWithStripe() {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  if (cart.length === 0) {
+    alert("¡Tu carrito está vacío!");
+    return;
+  }
+
+  const items = cart.map(item => ({
+  id: item.id, // 🔥 Добавлено!
+  name: item.name + (item.color ? ` - ${item.color}` : ""),
+  description: item.description || "Producto Sublue",
+  price: Number(item.price),
+  quantity: item.qty || 1,
+  image: item.image
+}));
+
+
+  try {
+    const response = await fetch("http://192.168.1.118:4242/create-checkout-session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ items })
+    });
+
+    const data = await response.json();
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      alert("Error: " + data.error);
+    }
+  } catch (error) {
+    alert("Error al crear la sesión de pago: " + error.message);
+  }
+}
+
+// Аксессуары
+function toggleAccessory(checkbox, price, name, image) {
+  const item = {
+    id: 'acc_' + name.toLowerCase().replace(/\s+/g, '_'),
+    name,
+    description: 'Accesorio adicional',
+    price,
+    quantity: 1,
+    image
+  };
+
+  if (checkbox.checked) {
+    accesoriosSeleccionados.push(item);
+  } else {
+    accesoriosSeleccionados = accesoriosSeleccionados.filter(i => i.id !== item.id);
+  }
+
+  updateAccessoryTotal();
+}
+
+function updateAccessoryTotal() {
+  const total = accesoriosSeleccionados.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const totalText = (total / 100).toFixed(2).replace('.', ',');
+  document.getElementById('accesoriosTotal').textContent = `€${totalText}`;
+}
+
+// Доставка
+function getDeliveryDate() {
+  const now = new Date();
+  now.setDate(now.getDate() + 3);
+  return now.toLocaleDateString("es-ES", { day: 'numeric', month: 'short' });
+}
+
+
+
+// Всплывающее сообщение
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.classList.remove("hidden");
+  setTimeout(() => toast.classList.add("hidden"), 3000);
+}
+
+
+
+function updateStockInfo() {
+  const currentId = "mixpro_" + currentColor;
+  const stock = stockData[currentId] ?? 0;
+  const stockText = stock > 0 
+    ? `En stock: ${stock} unidad${stock === 1 ? '' : 'es'}`
+    : "❌ No disponible";
+
+  const stockEl = document.getElementById("stockInfo");
+  if (stockEl) stockEl.textContent = stockText;
+
+  const addToCartBtn = document.querySelector("button[onclick='addToCart(event)']");
+  if (addToCartBtn) {
+    addToCartBtn.disabled = stock === 0;
+    addToCartBtn.classList.toggle("opacity-50", stock === 0);
+    addToCartBtn.classList.toggle("cursor-not-allowed", stock === 0);
+  }
+}
+
+function validateCartAgainstStock() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  let updated = false;
+
+  cart = cart.map(item => {
+    const available = stockData[item.id] ?? Infinity;
+    if (item.qty > available) {
+      item.qty = available;
+      updated = true;
+    }
+    return item;
+  });
+
+  if (updated) {
+    showToast("Stock actualizado en el carrito");
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartCount?.();
+  }
+}
+
+
+</script>
+<script>
+ function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const totalQty = cart.reduce((sum, item) => sum + (parseInt(item.qty) || 0), 0);
+  const countEl = document.getElementById("cartCount");
+  if (countEl) {
+    countEl.textContent = totalQty;
+  }
+}
+
+
+  // 🟢 при загрузке страницы — обновить счётчик
+  window.addEventListener("DOMContentLoaded", updateCartCount);
+</script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- AOS Animate On Scroll -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+
+
+
+
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Alquiler y venta de scooters submarinos Sublue en España. Entrega rápida, asistencia personalizada y productos originales.">
+  <link rel="icon" href="img/favi.png" type="image/png">
+  <title>Scooters Sublue | Alquiler y Venta</title>
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+   
+
+    .video-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    .video-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: url('fallback.jpg') no-repeat center center;
+      background-size: cover;
+      z-index: -3;
+    }
+
+    .content {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+}
+
+.top {
+  text-align: left;
+}
+
+.logo {
+  width: 180px;
+}
+
+.middle {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
+
+
+.bottom {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-start;
+}
+
+.btn {
+  padding: 12px 28px;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #fff;
+  color: #fff;
+  cursor: pointer;
+  backdrop-filter: blur(5px);
+  transition: 0.3s;
+  border-radius: 999px; /* ← делает кнопки капсульными */
+}
+
+
+.btn:hover {
+  background: #fff;
+  color: #000;
+}
+
+@media (max-width: 768px) {
+  .btn {
+    flex: 1;
+    width: 100%; /* перестраховка */
+  }
+
+  .bottom {
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+  }
+}
+
+
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: rgba(0, 0, 0, 0.2); /* Полупрозрачный тёмный */
+  backdrop-filter: blur(10px);    /* Блюр заднего фона */
+  -webkit-backdrop-filter: blur(10px); /* Для Safari */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Белая линия снизу */
+  z-index: 1000; /* Поверх видео и контента */
+}
+.video-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* ← степень затемнения */
+  z-index: -1;
+}
+
+.logo {
+  width: 200px;
+  transition: width 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .logo {
+    width: 180px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .logo {
+    width: 220px;
+  }
+}
+.description h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 2.4rem;
+  line-height: 0.8;
+  color: white;
+  text-align: left;
+  max-width: 700px;
+  padding: 0 24px;
+  opacity: 0.9;
+}
+
+.description {
+  margin-top: 360px;
+  margin-left: -20px;
+}
+.logo-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 20%;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.logo {
+  width: 250px;
+  max-width: 80%;
+}
+@media (min-width: 1024px) {
+  .bottom {
+    justify-content: flex-start;
+    padding-left: 60px;
+    padding-right: 60px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  .btn {
+    font-size: 1.1rem;
+    padding: 14px 36px;
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+  }
+}
+@media (min-width: 1024px) {
+  .bottom {
+    justify-content: flex-start;
+    padding-left: 60px;
+    padding-right: 60px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  .btn {
+    font-size: 1.1rem;
+    padding: 14px 36px;
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+  }
+}
+@media (min-width: 1024px) {
+  .btn {
+    font-size: 1.1rem;
+    padding: 14px 99px; /* Увеличиваем "длину" на ~20% */
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    
+  }
+
+  .bottom {
+    justify-content: flex-start;
+    padding-left: 60px;
+    padding-right: 60px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+}
+.ticker {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  background: rgba(0, 0, 0, 0.0);
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.600rem;
+  font-weight: 600;
+  padding: 3px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  z-index: 1001;
+  opacity: 0.6;
+}
+
+.ticker__content {
+  display: inline-block;
+  padding-left: 100%;
+  animation: ticker-scroll 80s linear infinite;
+}
+
+@keyframes ticker-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+@media (min-width: 1024px) {
+  .description {
+    position: relative;
+    margin-top: 120px;      /* под логотипом */
+    padding-left: 60px;     /* выравнивание с кнопками */
+    max-width: 720px;
+  }
+
+  .description h1 {
+    font-size: 2.8rem;
+    line-height: 1.2;
+    text-align: left;
+    opacity: 0;
+    animation: fadeUp 1.2s ease-out forwards;
+  }
+}
+
+@media (min-width: 1024px) {
+  .description {
+    position: relative;
+    margin-top: 500px; /* Подними текст ближе к логотипу */
+    padding-left: 60px;
+    max-width: 720px;
+  }
+}
+
+.content {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+}
+
+/* Кнопки внизу для десктопа */
+@media (min-width: 1024px) {
+  .bottom {
+    position: absolute;
+    bottom: 40px;
+    left: 60px;
+    display: flex;
+    gap: 12px;
+    margin: 0; /* убираем внешние отступы */
+    padding: 0;
+  }
+
+  .btn {
+    font-size: 1.1rem;
+    padding: 14px 99px;
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    transform: none; /* убираем сдвиг */
+  }
+}
+
+/* Текст остаётся выше, не влияет на кнопки */
+@media (min-width: 1024px) {
+  .description {
+    position: relative;
+    margin-top: 140px;
+    padding-left: 60px;
+    max-width: 720px;
+  }
+
+  .description h1 {
+    font-size: 2.8rem;
+    line-height: 1.2;
+    text-align: left;
+    opacity: 0;
+    animation: fadeUp 1.2s ease-out forwards;
+  }
+}
+@media (min-width: 1024px) {
+  .description {
+    position: relative;
+    margin-top: 400px;        /* ← опускает блок ниже */
+    padding-left: 60px;       /* выравнивание с кнопками */
+    max-width: 720px;
+  }
+
+  .description h1 {
+    font-size: 2.8rem;
+    line-height: 0.8;         /* ← уменьшает расстояние между строками */
+    text-align: left;
+    opacity: 0;
+    animation: fadeUp 1.2s ease-out forwards;
+  }
+}
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: sans-serif;
+  margin: 0;
+}
+
+
+  .catalog-card {
+    position: relative;
+  }
+  .catalog-card .hover-image {
+    display: none;
+  }
+  .catalog-card:hover .default-image {
+    opacity: 0;
+  }
+  .catalog-card:hover .hover-image {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: #f9fafb;
+    z-index: 10;
+  }
+
+/* Стили для хедера на десктопе */
+@media (min-width: 1024px) {
+  .site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    padding: 0 60px;
+    background: rgba(0, 0, 0, 0.3); /* полупрозрачный фон */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 1000;
+  }
+
+  .site-header .logo {
+    width: 140px;
+    max-width: 100%;
+  }
+
+  .site-header nav {
+    display: flex;
+    gap: 40px;
+  }
+
+  .site-header nav a {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: white;
+    opacity: 0.7;
+    text-decoration: none;
+    transition: opacity 0.3s;
+  }
+
+  .site-header nav a:hover {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 1.2s ease-out forwards;
+}
+
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  padding-top: 25px;
+  height: 0;
+}
+.video-container iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+
+  </style>
+</head>
+
+
+<body>
+    
+    
+    
+    <header class="site-header px-4 py-2 flex justify-between items-center">
+  <!-- ЛОГО СЛЕВА -->
+  <div class="flex items-center">
+     <a href="index.html">
+      <img src="img/sublue.png" alt="SUBI Logo" class="logo w-28 md:w-32 lg:w-36" />
+    </a>
+  </div>
+
+  <!-- МЕНЮ СПРАВА: только на десктопе -->
+  <nav class="hidden md:flex space-x-8 text-white font-semibold text-sm tracking-widest uppercase">
+    <a href="#catalog" class="hover:text-yellow-300 transition">Modelos</a>
+    <a href="#alquiler" class="hover:text-yellow-300 transition">Alquiler</a>
+    <a href="#contact" class="hover:text-yellow-300 transition">Contacto</a>
+    <a href="#nosotros" class="hover:text-yellow-300 transition">Sobre nosotros</a>
+    <a href="#faq" class="hover:text-yellow-300 transition">FAQ</a>
+  </nav>
+<!-- Иконка корзины -->
+<a href="cart.html" class="relative">
+  <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-white hover:text-yellow-300 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.5 6h13l-1.5-6M9 21h0M15 21h0" />
+  </svg>
+  <span id="cartCount" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">0</span>
+</a>
+
+
+  
+</header>
+
+
+
+
+<div class="ticker">
+  <div class="ticker__content">
+    <span>
+      ENTREGA RÁPIDA EN: MÁLAGA MARBELLA NERJA TORROX TORREMOLINOS BENALMÁDENA FUENGIROLA ESTEPONA VÉLEZ-MÁLAGA ALMUÑÉCAR SALOBREÑA MOTRIL LA HERRADURA RINCÓN DE LA VICTORIA CALAHONDA MANILVA SAN PEDRO DE ALCÁNTARA CASTELL DE FERRO CARCHUNA EL PALO PEDREGALEJO ALGARROBO TORRE DEL MAR EL MORCHE MEZQUITILLA BENAJARAFE CHILCHES SABINILLAS CASARES COSTA —
+    </span>
+    <span>
+      ENTREGA RÁPIDA EN: MÁLAGA MARBELLA NERJA TORROX TORREMOLINOS BENALMÁDENA FUENGIROLA ESTEPONA VÉLEZ-MÁLAGA ALMUÑÉCAR SALOBREÑA MOTRIL LA HERRADURA RINCÓN DE LA VICTORIA CALAHONDA MANILVA SAN PEDRO DE ALCÁNTARA CASTELL DE FERRO CARCHUNA EL PALO PEDREGALEJO ALGARROBO TORRE DEL MAR EL MORCHE MEZQUITILLA BENAJARAFE CHILCHES SABINILLAS CASARES COSTA —
+    </span>
+  </div>
+</div>
+
+
+
+
+
+
+  <div class="video-overlay"></div>
+
+  <video autoplay muted loop playsinline class="video-bg">
+    <source src="img/vd.mp4" type="video/mp4" />
+
+    <!-- fallback image is already layered behind via CSS -->
+  </video>
+
+ <div class="content">
+  <div class="top">
+    <div class="logo-wrapper">
+  <img src="img/sublue.png" alt="SUBI Logo" class="logo animated-logo" />
+</div>
+
+
+  </div>
+
+  <div class="middle">
+    <div class="description">
+      <h1>
+        Descubre el mundo submarino con elegancia<br />
+        <strong>SUBI — scooters eléctricos marinos para alquilar y vivir la aventura</strong>
+      </h1>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <button class="btn" onclick="document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' })">
+  Comprar
+</button>
+
+    <button class="btn">Alquiler</button>
+  </div>
+</div>
+<!-- Вторая секция с белым фоном -->
+<div id="catalog" class="catalog-section"><div id="catalog" class="bg-white py-8 px-4">
+
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-4xl font-bold text-black text-center leading-tight mb-6" style="font-family: 'Playfair Display', serif;">
+  Catálogo
+</h2>
+
+
+    <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-3">
+      <!-- Каталожная карточка -->
+      <div class="catalog-card bg-white rounded-lg shadow-md overflow-hidden cursor-pointer" onclick="openProduct()">
+        <div class="relative w-full h-48">
+          <img src="img/products/Mixpro/black/black1.webp" alt="Sublue Scooter" class="default-image w-full h-full object-contain bg-gray-50">
+          <img src="img/products/Mixpro/black/black4.webp" alt="Sublue Scooter Hover" class="hover-image w-full h-full object-contain bg-gray-50">
+          <img src="img/products/Mixpro/black/black6.webp" alt="Sublue Scooter Hover" class="hover-image w-full h-full object-contain bg-gray-50">
+          <img src="img/products/Mixpro/black/black7.webp" alt="Sublue Scooter Hover" class="hover-image w-full h-full object-contain bg-gray-50">
+          <img src="img/products/Mixpro/black/black8.webp" alt="Sublue Scooter Hover" class="hover-image w-full h-full object-contain bg-gray-50">
+          <img src="img/products/Mixpro/black/black10.webp" alt="Sublue Scooter Hover" class="hover-image w-full h-full object-contain bg-gray-50">
+        </div>
+        <div class="p-4 space-y-1">
+          <p class="text-xs text-blue-500">+1 otro color/diseño</p>
+          <h3 class="font-semibold text-sm">Sublue</h3>
+          <p class="text-sm text-gray-700 leading-snug">Mix Pro: doble motor, 40 m profundidad, cámara...</p>
+          <div class="flex items-center text-yellow-500 text-sm">
+            <span>★★★★☆</span>
+            <span class="text-gray-500 ml-2">23</span>
+          </div>
+          <div class="text-lg font-bold text-gray-900">€999.00</div>
+          <p class="text-sm text-gray-700">
+  ENTREGA GRATIS <span class="delivery-date font-bold text-black"></span>
+</p>
+
+          <button
+  onclick="addToCart(event, 'mixpro001', 'Sublue Mix Pro', 999.00, 'img/products/Mixpro/black/black1.webp')"
+  class="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-1.5 mt-2 rounded">
+  Añadir al carrito
+</button>
+
+
+
+
+        </div>
+      </div>
+<!-- 2. Navbow -->
+    <div class="catalog-card bg-white rounded-lg shadow-md overflow-hidden cursor-pointer" onclick="window.location.href='navbow.html'">
+      <div class="relative w-full h-48">
+        <img src="img/products/Navbow/llamaroja/llamaroja.webp" alt="Navbow" class="default-image w-full h-full object-contain bg-gray-50">
+        <img src="img/products/Navbow/llamaroja/llamaroja6.webp" alt="Hover" class="hover-image w-full h-full object-contain bg-gray-50">
+      </div>
+      <div class="p-4 space-y-1">
+        <p class="text-xs text-blue-500">+2 colores disponibles</p>
+        <h3 class="font-semibold text-sm">Sublue Navbow</h3>
+        <p class="text-sm text-gray-700 leading-snug">Scooter con 3 modos de velocidad, pantalla OLED y app conectada.</p>
+        <div class="flex items-center text-yellow-500 text-sm">
+          <span>★★★★★</span>
+          <span class="text-gray-500 ml-2">(240)</span>
+        </div>
+        <div class="text-lg font-bold text-gray-900">€1.399,00</div>
+        <p class="text-sm text-gray-700">
+  ENTREGA GRATIS <span class="delivery-date font-bold text-black"></span>
+</p>
+
+        <button
+  onclick="addToCart(event, 'navbow001', 'Sublue Navbow', 1399.00, 'img/products/Navbow/llamaroja/Llamaroja1.webp')"
+  class="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-1.5 mt-2 rounded">
+  Añadir al carrito
+</button>
+
+
+
+      </div>
+    </div>
+
+    <!-- 3. Vapor -->
+    <!-- 3. Vapor -->
+<div class="catalog-card bg-white rounded-lg shadow-md overflow-hidden cursor-pointer" onclick="window.location.href='vapor.html'">
+  <div class="relative w-full h-48">
+    <img src="img/products/vapor/aventurinaroja/roja1.webp" alt="Vapor" class="default-image w-full h-full object-contain bg-gray-50">
+    <img src="img/products/vapor/aventurinaroja/roja2.webp" alt="Hover" class="hover-image w-full h-full object-contain bg-gray-50">
+  </div>
+  <div class="p-4 space-y-1">
+    <p class="text-xs text-blue-500">Pantalla LCD | GPS | Profundidad 40m</p>
+    <h3 class="font-semibold text-sm">Sublue Vapor</h3>
+    <p class="text-sm text-gray-700 leading-snug">
+      Alta velocidad 10 km/h, control inteligente y diseño premium.
+    </p>
+    <div class="flex items-center text-yellow-500 text-sm">
+      <span>★★★★★</span>
+      <span class="text-gray-500 ml-2">(260)</span>
+    </div>
+    <div class="text-lg font-bold text-gray-900">€3.299,00</div>
+    <p class="text-sm text-gray-700">
+      ENTREGA GRATIS <span class="delivery-date font-bold text-black">en <span class="delivery-date">...</span></span>
+    </p>
+
+    <button onclick="addToCart(event)" class="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-1.5 mt-2 rounded">
+      Añadir al carrito
+    </button>
+  </div>
+</div>
+
+
+<!-- Mix -->
+<div class="catalog-card bg-white rounded-lg shadow-md overflow-hidden cursor-pointer" onclick="window.location.href='mix.html'">
+  <div class="relative w-full h-48">
+    <img src="img/products/Mix/azulespacial/aqua_blue1.webp" alt="Mix Aqua Blue" class="default-image w-full h-full object-contain bg-gray-50">
+    <img src="img/products/Mix/azulespacial/aqua_blue2.webp" alt="Mix Hover" class="hover-image w-full h-full object-contain bg-gray-50">
+  </div>
+  <div class="p-4 space-y-1">
+    <p class="text-xs text-blue-500">Dual‑motor · 40 m profondeur</p>
+    <h3 class="font-semibold text-sm">Sublue MIX</h3>
+    <p class="text-sm text-gray-700">
+      Speed up to 1.5 m/s, lightweight and portable.
+    </p>
+    <div class="flex items-center text-yellow-500 text‑sm">
+      <span>★★★★☆</span>
+      <span class="text-gray-500 ml-2">(150)</span>
+    </div>
+    <div class="text-lg font-bold text-gray-900">€769,00</div>
+    <p class="text‑sm text-gray-700">
+      ENTREGA GRATIS <span class="delivery-date font-bold text-black"></span>
+    </p>
+    <button onclick="addToCart(event)" class="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-medium py‑1.5 mt‑2 rounded">
+      Añadir al carrito
+    </button>
+  </div>
+</div>
+
+
+<!-- Navbow+ Card -->
+<div class="catalog-card bg-white rounded-lg shadow-md overflow-hidden cursor-pointer" onclick="window.location.href='navbowplus.html'">
+  <div class="relative w-full h-48">
+    <img src="img/products/NavbowPlus/naranjallama/naranjallama1.webp" alt="Navbow+ Flame Orange" class="default-image w-full h-full object-contain bg-gray-50">
+    <img src="img/products/NavbowPlus/naranjallama/naranjallama2.webp" alt="Navbow+ Hover" class="hover-image w-full h-full object-contain bg-gray-50">
+  </div>
+  <div class="p-4 space-y-1">
+    <p class="text-xs text-blue-500">OLED * 2 m/s * Depth 40 m</p>
+    <h3 class="font-semibold text-sm">Sublue Navbow+</h3>
+    <p class="text-sm text-gray-700 leading-snug">
+      OLED screen, app control, 3 speeds, up to 60 min runtime.
+    </p>
+    <div class="flex items-center text-yellow-500 text-sm">
+      <span>★★★★★</span>
+      <span class="text-gray-500 ml-2">(120)</span>
+    </div>
+    <div class="text-lg font-bold text-gray-900">€1.649,00</div>
+    <p class="text-sm text-gray-700">
+      ENTREGA GRATIS <span class="delivery-date font-bold text-black"></span>
+    </p>
+    <button onclick="addToCart(event)" class="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-1.5 mt-2 rounded">
+      Añadir al carrito
+    </button>
+  </div>
+</div>
+<!-- Hagul EZ -->
+<div class="catalog-card bg-white rounded-lg shadow-md overflow-hidden cursor-pointer" onclick="window.location.href='hagul.html'">
+  <div class="relative w-full h-48">
+    <img src="img/products/HagulEZ/white1.webp" alt="Hagul EZ White" class="default-image w-full h-full object-contain bg-gray-50">
+    <img src="img/products/HagulEZ/white2.webp" alt="Hover" class="hover-image w-full h-full object-contain bg-gray-50">
+  </div>
+  <div class="p-4 space-y-1">
+    <p class="text-xs text-blue-500">2 Speeds · Depth 15 m · 50 min</p>
+    <h3 class="font-semibold text-sm">Sublue Hagul EZ</h3>
+    <p class="text-sm text-gray-700 leading-snug">
+      Simple interface, lightweight & pool‑friendly scooter.
+    </p>
+    <div class="flex items-center text-yellow-500 text-sm">
+      <span>★★★☆☆</span>
+      <span class="text-gray-500 ml-2">(15)</span>
+    </div>
+    <div class="text-lg font-bold text-gray-900">€289,00</div>
+    <p class="text-sm text-gray-700">
+      ENTREGA GRATIS <span class="delivery-date font-bold text-black"></span>
+    </p>
+    <button onclick="addToCart(event)" class="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-1.5 mt-2 rounded">
+      Añadir al carrito
+    </button>
+  </div>
+</div>
+
+
+      <!-- Дублируй блок выше, чтобы вставить карточки 2 и 3 -->
+    </div>
+    <div class="video-container rounded-lg shadow-lg">
+    <iframe 
+      src="https://www.youtube.com/embed/MKvje-6VIWc" 
+      title="YouTube video player" 
+      frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen
+    ></iframe>
+    
+  </div>
+  <div class="flex flex-col md:flex-row gap-0">
+  <iframe class="w-full md:w-1/3 aspect-[9/16]" src="https://www.youtube.com/embed/iKkZA3ci7No" title="Short 1" frameborder="0" allowfullscreen></iframe>
+  <iframe class="w-full md:w-1/3 aspect-[9/16]" src="https://www.youtube.com/embed/6Jxr91xaKqk" title="Short 2" frameborder="0" allowfullscreen></iframe>
+  <iframe class="w-full md:w-1/3 aspect-[9/16]" src="https://www.youtube.com/embed/zAU6jEvMyS4" title="Short 3" frameborder="0" allowfullscreen></iframe>
+</div>
+
+    
+  </div>
+
+
+
+  
+  <div class="max-w-6xl mx-auto my-12 px-4">
+  
+  
+  
+</div>
+
+  
+
+  
+  
+<div class="relative">
+  <img src="img/Sublue.jpg" class="w-full h-auto" alt="SUBLUE fondo" />
+
+  <div class="absolute top-[70%] left-0 right-0 flex justify-center z-10">
+    <h1
+  data-aos="fade-up"
+  class="text-white font-bold text-[1.5rem] sm:text-[2.4rem] leading-[1.2] px-4 sm:px-6 text-center font-['Playfair_Display']"
+>
+  Libertad bajo el agua<br />
+  <strong class="block mt-2 text-sm sm:text-base">Velocidad Silencio Belleza</strong>
+</h1>
+
+
+  </div>
+  
+</div>
+<div class="video-container rounded-lg shadow-lg">
+  <iframe 
+    src="https://www.youtube.com/embed/7bzwRaYU3qk?start=2" 
+    title="YouTube video player" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen
+  ></iframe>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+<!-- Уведомление -->
+<div id="toast" class="fixed bottom-5 right-5 bg-green-600 text-white text-sm px-4 py-2 rounded shadow-lg hidden z-50">
+  Añadido al carrito
+</div>
+
+
+
+
+
+
+<footer class="bg-gray-900 text-white px-6 pt-0 pb-10 z-10 overflow-hidden">
+
+  
+
+  <!-- Контент футера -->
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
+    
+    <!-- Контакты -->
+    <!-- Контакты -->
+<div id="contact" class="space-y-2">
+  <h2 class="text-xl font-semibold">Contacto</h2>
+  <p class="text-sm">Av. de Andalucía, 3, 29751 Algarrobo-Costa, Málaga</p>
+  <p class="text-sm">
+    Tel: <a href="tel:+34692828614" class="hover:underline">+34 692 828 614</a>, 
+    <a href="tel:+34614140871" class="hover:underline">+34 614 140 871</a>
+  </p>
+  <p class="text-sm">Email: <a href="mailto:subluespana@gmail.com" class="hover:underline">subluespana@gmail.com</a></p>
+</div>
+
+
+    <!-- Кнопки -->
+    <div class="space-y-2">
+      <h2 class="text-xl font-semibold">Información</h2>
+      <div class="text-sm text-white">
+  <a href="#" onclick="document.getElementById('modalCondicionesAlquiler').classList.remove('hidden')">Condiciones de alquiler</a>
+  <a href="#" onclick="document.getElementById('modalCondicionesVenta').classList.remove('hidden')" class="ml-4">Condiciones de venta</a>
+  <a href="#" onclick="document.getElementById('modalCondicionesEntrega').classList.remove('hidden')" class="ml-4">Condiciones de entrega</a>
+</div>
+
+    </div>
+  </div>
+
+  <!-- Нижняя часть -->
+  <div class="max-w-7xl mx-auto mt-10 border-t border-gray-700 pt-6 flex flex-col items-center space-y-4 text-sm text-gray-400">
+    
+    <p>
+      Hecho por 
+      <a href="https://3dna.es" class="underline hover:text-white transition" target="_blank">3DNA.es</a> – Agencia Creativa
+    </p>
+
+    <!-- Иконки соцсетей -->
+    <div class="flex gap-6">
+      <!-- Facebook -->
+      <a href="https://www.facebook.com/sublue_spain" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="Facebook">
+        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+          <path d="M22 12a10 10 0 10-11.5 9.9v-7H8v-3h2.5V9.2c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.3c-1.3 0-1.7.8-1.7 1.6v1.9h3l-.5 3h-2.5v7A10 10 0 0022 12z"/>
+        </svg>
+      </a>
+
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/sublue_spain" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="Instagram">
+        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+          <path d="M7 2C4.8 2 3 3.8 3 6v12c0 2.2 1.8 4 4 4h10c2.2 0 4-1.8 4-4V6c0-2.2-1.8-4-4-4H7zm10 2c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H7c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2h10zm-5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm4.8-.8a1.2 1.2 0 11-2.4 0 1.2 1.2 0 012.4 0z"/>
+        </svg>
+      </a>
+
+      <!-- WhatsApp -->
+      <a href="https://wa.me/34692828614" target="_blank" class="text-gray-400 hover:text-white transition" aria-label="WhatsApp">
+        <svg class="w-6 h-6 fill-current" viewBox="0 0 32 32">
+          <path d="M16 2.7A13.3 13.3 0 002.7 16c0 2.3.6 4.4 1.7 6.3L2 30l7.9-2.4a13.2 13.2 0 006.1 1.5A13.3 13.3 0 0016 2.7zm0 24.3c-1.9 0-3.8-.5-5.4-1.4l-.4-.2-4.7 1.4 1.5-4.6-.3-.4a11 11 0 1119.2-6.1 11 11 0 01-9.9 11.3zm6-8.3c-.3-.1-1.7-.9-2-1-.3-.1-.5-.2-.7.2s-.8 1-1 1.2c-.2.1-.4.1-.7 0-.3-.1-1.3-.5-2.5-1.6a9.3 9.3 0 01-1.7-2.2c-.2-.3 0-.5.1-.7l.4-.6c.1-.2.2-.4.3-.6.1-.2 0-.5 0-.7 0-.2-.7-1.8-1-2.5-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.7.3a3 3 0 00-1 2.2 5.2 5.2 0 001.1 2.6 11 11 0 004.7 4.1c1.8.7 2.2.6 2.6.5.4-.1 1.3-.6 1.5-1.1.2-.5.2-1 .1-1.2z"/>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Логотип -->
+    <img src="/img/lg.png" alt="3DNA Logo" class="h-6 grayscale hover:grayscale-0 transition" />
+  </div>
+
+</footer>
+
+<!-- Модальное окно: Condiciones de alquiler -->
+<div id="modalCondicionesAlquiler" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 hidden">
+  <div class="bg-white w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-xl shadow-lg p-6 relative">
+    
+    <!-- Кнопка закрытия -->
+    <button onclick="document.getElementById('modalCondicionesAlquiler').classList.add('hidden')" 
+            class="absolute top-4 right-4 text-gray-500 hover:text-black text-2xl">&times;</button>
+
+    <!-- Заголовок -->
+    <h2 class="text-2xl font-bold mb-4">Condiciones Generales de Alquiler de Equipos Recreativos</h2>
+    <p class="mb-4">Torre del Mar, provincia de Málaga</p>
+
+    <!-- Секции -->
+    <h3 class="font-semibold mt-6 mb-2">1. Objeto del Alquiler</h3>
+    <p>El arrendador pone a disposición del arrendatario uno o varios equipos recreativos para su uso temporal, incluyendo, pero no limitándose a: dispositivos subacuáticos, cámaras deportivas, gafas de realidad virtual, y otros accesorios. Todos los equipos se entregan con sus componentes correspondientes y en condiciones óptimas de funcionamiento.</p>
+
+    <h3 class="font-semibold mt-6 mb-2">2. Duración del Alquiler</h3>
+    <p>El periodo de alquiler comienza y finaliza en las fechas y horas acordadas entre las partes. El arrendatario se compromete a devolver el equipo en la fecha y hora pactadas. Cualquier retraso en la devolución podrá generar una penalización proporcional al tiempo excedido.</p>
+
+    <h3 class="font-semibold mt-6 mb-2">3. Condiciones de Entrega y Devolución</h3>
+    <ul class="list-disc ml-6">
+      <li>Entrega y recogida en lugar acordado</li>
+      <li>Verificación del documento de identidad</li>
+      <li>Registro visual del equipo</li>
+      <li>Explicación de uso y normas</li>
+    </ul>
+    <p>A la devolución, el equipo será inspeccionado visualmente. Cualquier daño será documentado y firmado por ambas partes.</p>
+
+    <h3 class="font-semibold mt-6 mb-2">4. Responsabilidad del Arrendatario</h3>
+    <ul class="list-disc ml-6">
+      <li>Uso correcto y conforme a instrucciones</li>
+      <li>Prohibida la cesión a terceros</li>
+      <li>No modificar ni manipular el equipo</li>
+      <li>Mantener el equipo en lugar seguro</li>
+    </ul>
+
+    <h3 class="font-semibold mt-6 mb-2">5. Condiciones de Uso</h3>
+    <ul class="list-disc ml-6">
+      <li>Uso en zonas seguras autorizadas</li>
+      <li>Prohibido bajo efectos de alcohol o drogas</li>
+      <li>Sólo mayores de edad (18+)</li>
+      <li>Uso obligatorio de protección si aplica</li>
+      <li>Prohibido en condiciones peligrosas</li>
+    </ul>
+
+    <h3 class="font-semibold mt-6 mb-2">6. Depósito de Garantía</h3>
+    <p>Se solicitará un depósito reembolsable al momento del alquiler. Se devolverá si no hay daños ni incumplimientos.</p>
+
+    <h3 class="font-semibold mt-6 mb-2">7. Identificación y Registro</h3>
+    <p>El arrendador podrá registrar visualmente al arrendatario y al equipo para garantizar la trazabilidad.</p>
+
+    <h3 class="font-semibold mt-6 mb-2">8. Protección de Datos</h3>
+    <p>Los datos serán tratados con confidencialidad y sólo para fines administrativos del contrato.</p>
+
+    <h3 class="font-semibold mt-6 mb-2">9. Resolución de Conflictos</h3>
+    <p>Las partes intentarán resolver conflictos de forma amistosa. Si no es posible, se acudirá a los tribunales de Vélez-Málaga.</p>
+
+    <h3 class="font-semibold mt-6 mb-2">10. Declaración Final</h3>
+    <p>El arrendatario declara que ha leído, entendido y aceptado todas las condiciones descritas.</p>
+
+    <div class="mt-8">
+      <p class="font-semibold">FIRMAS</p>
+      <p>Arrendador: Firma: ____________________  Fecha: ______________</p>
+      <p>Arrendatario: Firma: ____________________  Fecha: ______________</p>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Модальное окно: Condiciones de venta -->
+<div id="modalVenta" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 hidden">
+  <div class="bg-white rounded-lg shadow-xl max-w-lg w-full p-6 relative">
+    <button onclick="document.getElementById('modalVenta').classList.add('hidden')" 
+            class="absolute top-2 right-2 text-gray-500 hover:text-black text-2xl">&times;</button>
+    <h2 class="text-xl font-semibold mb-4">Condiciones de venta</h2>
+    <p class="text-gray-700 text-sm">
+      Aquí puedes añadir tus condiciones de venta detalladas...
+    </p>
+  </div>
+</div>
+
+<!-- Модальное окно: Condiciones de entrega -->
+<div id="modalEntrega" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 hidden">
+  <div class="bg-white rounded-lg shadow-xl max-w-lg w-full p-6 relative">
+    <button onclick="document.getElementById('modalEntrega').classList.add('hidden')" 
+            class="absolute top-2 right-2 text-gray-500 hover:text-black text-2xl">&times;</button>
+    <h2 class="text-xl font-semibold mb-4">Condiciones de entrega</h2>
+    <p class="text-gray-700 text-sm">
+      Aquí puedes añadir tus condiciones de entrega detalladas...
+    </p>
+  </div>
+</div>
+
+
+
+
+
+<script>
+  function openProduct() {
+    window.location.href = 'mixpro.html';
+  }
+
+
+  const burger = document.getElementById("burgerBtn");
+  const menu = document.getElementById("mobileMenu");
+
+  burger.addEventListener("click", () => {
+    menu.classList.toggle("hidden");
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
+
+
+
+<script>
+  const productColors = {
+    mixpro001: ['Negro', 'Verde activo'],
+    navbow001: ['Llama roja', 'Verde activo'],
+    vapor001: ['Negro']
+  };
+
+  function addToCart(event, id, name, price, image) {
+    event.stopPropagation();
+
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const colors = productColors[id];
+    const color = colors ? colors[Math.floor(Math.random() * colors.length)] : 'Sin color';
+
+    const today = new Date();
+    const deliveryDate = addBusinessDays(today, 7);
+    const formattedDelivery = formatDateES(deliveryDate);
+
+    const existingItem = cart.find(item => item.id === id && item.color === color);
+
+    if (existingItem) {
+      existingItem.qty += 1;
+    } else {
+      cart.push({ id, name, price, qty: 1, image, color, delivery: formattedDelivery });
+    }
+
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartCount();
+    showToast("Añadido al carrito");
+
+if (!canAddToCart(id, 1)) {
+  showToast("No hay suficiente stock");
+  return;
+}
+
+if (stockData[id]) {
+  stockData[id].stock -= 1; // вычитаем 1 штуку
+  console.log(`✅ Stock de ${id} ahora: ${stockData[id].stock}`);
+}
+
+
+  // ...
+</script>
+
+<script>
+  function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const totalQty = cart.reduce((sum, item) => {
+    const quantity = parseInt(item.qty || item.quantity || 0);
+    return sum + (isNaN(quantity) ? 0 : quantity);
+  }, 0);
+
+  const countEl = document.getElementById("cartCount");
+  if (countEl) {
+    countEl.textContent = totalQty;
+  }
+}
+
+
+  updateCartCount();
+
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.classList.remove("hidden");
+
+  setTimeout(() => {
+    toast.classList.add("hidden");
+  }, 3000); // исчезнет через 3 секунды
+}
+
+</script>
+
+<script>
+  function addBusinessDays(startDate, daysToAdd) {
+    let daysAdded = 0;
+    const date = new Date(startDate);
+
+    while (daysAdded < daysToAdd) {
+      date.setDate(date.getDate() + 1);
+      const day = date.getDay();
+      if (day !== 0 && day !== 6) {
+        daysAdded++;
+      }
+    }
+
+    return date;
+  }
+
+  function formatDateES(date) {
+    const day = date.getDate();
+    const month = date.toLocaleString('es-ES', { month: 'short' }).replace('.', '');
+    return `${day} ${month}`;
+  }
+
+  function updateAllDeliveryDates() {
+    const today = new Date();
+    const targetDate = addBusinessDays(today, 7);
+    const deliveryText = `${today.getDate()} - ${formatDateES(targetDate)}`;
+
+    document.querySelectorAll(".delivery-date").forEach(el => {
+      el.textContent = deliveryText;
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", updateAllDeliveryDates);
+</script>
+
+
+<script>
+  let stockData = {};
+
+  async function fetchStock() {
+    try {
+      const response = await fetch(
+        "https://docs.google.com/spreadsheets/d/e/2PACX-1vT3_8DRtvqhfTcNQq5cgiAAZSf7lKv7N2Q-B4XbAJwe_hRz4W8CET4LPn16Qo4oZ1M_RF_XfW3JmTl-/pub?gid=0&single=true&output=csv&t=" + Date.now(),
+        {
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache'
+          }
+        }
+      );
+
+      const text = await response.text();
+      const rows = text.trim().split("\n").slice(1); // Пропускаем заголовки
+
+      rows.forEach(row => {
+        const [id, name, color, price, stock] = row.split(",");
+        stockData[id.trim()] = {
+          name: name.trim(),
+          color: color.trim(),
+          price: Number(price),
+          stock: Number(stock)
+        };
+      });
+
+      console.log("✅ Stock cargado:", stockData);
+    } catch (error) {
+      console.error("❌ Error al cargar stock:", error);
+    }
+  }
+
+  fetchStock();
+
+  // ✅ (опционально) автоматическое обновление каждые 60 сек
+  setInterval(fetchStock, 60000);
+</script>
+
+<script>
+  function canAddToCart(itemId, requestedQty) {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Сколько уже в корзине такого же товара
+    const alreadyInCart = cart
+      .filter(item => item.id === itemId)
+      .reduce((sum, item) => sum + (item.qty || 0), 0);
+
+    // Сколько всего доступно на складе
+    const availableStock = stockData[itemId]?.stock || 0;
+
+    // Возвращаем true, если можно добавить
+    return alreadyInCart + requestedQty <= availableStock;
+  }
+</script>
+<script>
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const totalQty = cart.reduce((sum, item) => sum + (parseInt(item.qty) || 0), 0);
+    const countEl = document.getElementById("cartCount");
+    if (countEl) countEl.textContent = totalQty;
+  }
+
+  // 🟢 при загрузке страницы — обновить счётчик
+  window.addEventListener("DOMContentLoaded", updateCartCount);
+</script>
+
+
+
+
+</body>
+</html>
+
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Alquiler y venta de scooters submarinos Sublue en España. Entrega rápida, asistencia personalizada y productos originales.">
+  <link rel="icon" href="img/favi.png" type="image/png">
+  <title>Pago completado - Scooters Sublue | Alquiler y Venta</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-gray-800">
+
+  <!-- Хедер -->
+  <header class="site-header px-4 py-2 flex justify-between items-center bg-black bg-opacity-60 backdrop-blur-md sticky top-0 z-50">
+    <div class="flex items-center">
+      <a href="index.html">
+        <img src="img/sublue.png" alt="SUBI Logo" class="logo w-28 md:w-32 lg:w-36" />
+      </a>
+    </div>
+    <nav class="hidden md:flex space-x-8 text-white font-semibold text-sm tracking-widest uppercase">
+      <a href="index.html#catalog" class="hover:text-yellow-300 transition">Modelos</a>
+      <a href="index.html#alquiler" class="hover:text-yellow-300 transition">Alquiler</a>
+      <a href="index.html#contact" class="hover:text-yellow-300 transition">Contacto</a>
+      <a href="index.html#nosotros" class="hover:text-yellow-300 transition">Sobre nosotros</a>
+      <a href="index.html#faq" class="hover:text-yellow-300 transition">FAQ</a>
+    </nav>
+  </header>
+
+  <!-- Контент -->
+  <div class="max-w-4xl mx-auto px-6 py-12 text-center">
+    <h1 class="text-3xl md:text-5xl font-bold font-['Playfair_Display'] text-green-600 mb-6">¡Gracias por tu compra!</h1>
+    <p class="text-lg md:text-xl text-gray-700 mb-4">
+      Tu pedido del <strong>Scooter SUBLUE Mix Pro</strong> fue procesado con éxito.
+    </p>
+    <p class="text-gray-600 mb-4">Pronto recibirás un correo electrónico con la confirmación del pago y los detalles del envío.</p>
+
+    <div class="bg-gray-100 p-6 rounded-lg shadow mt-6 text-left">
+      <h2 class="text-lg font-semibold mb-2">Resumen del pedido:</h2>
+      <ul class="list-disc list-inside text-sm text-gray-800">
+  <li>Producto: <strong id="orderProduct">Cargando...</strong></li>
+  <li>Color: <span id="orderColor">Cargando...</span></li>
+  <li>Precio: <span id="orderPrice">Cargando...</span></li>
+  <li>Correo: <span id="orderEmail">Cargando...</span></li>
+  <li>Envío: <span id="orderShipping">Cargando...</span></li>
+</ul>
+
+    </div>
+
+    <a href="index.html" class="mt-8 inline-block bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-3 px-6 rounded shadow transition">Volver a la página principal</a>
+  </div>
+
+<script>
+  async function loadSessionDetails() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const sessionId = urlParams.get('session_id');
+
+    if (!sessionId) {
+      alert('No session ID found');
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:4242/checkout-session/${sessionId}`);
+      const session = await response.json();
+
+      document.getElementById('orderProduct').textContent = session?.line_items?.data?.[0]?.description || 'N/A';
+      document.getElementById('orderColor').textContent = session?.metadata?.color || 'N/A';
+      document.getElementById('orderPrice').textContent = (session.amount_total / 100).toFixed(2) + ' €';
+      document.getElementById('orderEmail').textContent = session.customer_details?.email || 'N/A';
+      document.getElementById('orderShipping').textContent = session.customer_details?.address?.country || 'N/A';
+
+    } catch (err) {
+      console.error('Ошибка при получении сессии:', err);
+      alert('Ошибка загрузки деталей заказа');
+    }
+  }
+
+  window.onload = loadSessionDetails;
+</script>
+<script>
+  // Очищаем корзину после успешной оплаты
+  localStorage.removeItem("cart");
+
+  // Обновляем счётчик
+  const countEl = document.getElementById("cartCount");
+  if (countEl) countEl.textContent = "0";
+</script>
+
+
+
+
+
+</body>
+</html>

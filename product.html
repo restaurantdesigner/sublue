@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://js.stripe.com/v3/"></script>
+
+  <title>Sublue Product Page</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    const productImagesByColor = {
+      black: [
+        "img/products/Mixpro/black/black1.webp",
+        "img/products/Mixpro/black/black2.webp",
+        "img/products/Mixpro/black/black3.webp",
+        "img/products/Mixpro/black/black4.webp",
+        "img/products/Mixpro/black/black5.webp",
+        "img/products/Mixpro/black/black6.webp",
+        "img/products/Mixpro/black/black7.webp",
+        "img/products/Mixpro/black/black8.webp",
+        "img/products/Mixpro/black/black9.webp",
+        "img/products/Mixpro/black/black10.webp",
+        "img/products/Mixpro/black/black11.webp",
+        "img/products/Mixpro/black/black12.webp",
+        "img/products/Mixpro/black/black13.webp",
+        "img/products/Mixpro/black/black14.webp",
+        "img/products/Mixpro/black/black15.webp",
+        "img/products/Mixpro/black/black16.webp",
+        "img/products/Mixpro/black/black17.webp",
+        "img/products/Mixpro/black/black18.webp"
+      ],
+      white: [
+        "img/products/Mixpro/white/white1.webp",
+        "img/products/Mixpro/white/white2.webp",
+        "img/products/Mixpro/white/white3.webp",
+        "img/products/Mixpro/white/white4.webp",
+        "img/products/Mixpro/white/white5.webp",
+        "img/products/Mixpro/white/white6.webp",
+        "img/products/Mixpro/white/white7.webp",
+        "img/products/Mixpro/white/white8.webp",
+        "img/products/Mixpro/white/white9.webp",
+        "img/products/Mixpro/white/white10.webp",
+        "img/products/Mixpro/white/white11.webp",
+        "img/products/Mixpro/white/white12.webp",
+        "img/products/Mixpro/white/white13.webp",
+        "img/products/Mixpro/white/white14.webp",
+        "img/products/Mixpro/white/white15.webp",
+        "img/products/Mixpro/white/white16.webp",
+        "img/products/Mixpro/white/white17.webp",
+        "img/products/Mixpro/white/white18.webp",
+        "img/products/Mixpro/white/white19.webp",
+        "img/products/Mixpro/white/white20.webp",
+        "img/products/Mixpro/white/white21.webp",
+        "img/products/Mixpro/white/white22.webp",
+        "img/products/Mixpro/white/white23.webp",
+        "img/products/Mixpro/white/white24.webp",
+        "img/products/Mixpro/white/white25.webp"
+      ]
+    };
+
+    
+
+    function handleTouchStart(e) {
+      startX = e.touches[0].clientX;
+    }
+
+    function handleTouchEnd(e) {
+      const endX = e.changedTouches[0].clientX;
+      const diff = endX - startX;
+
+      const images = productImagesByColor[currentColor];
+      if (Math.abs(diff) > 50) {
+        if (diff < 0 && currentIndex < images.length - 1) {
+          currentIndex++;
+        } else if (diff > 0 && currentIndex > 0) {
+          currentIndex--;
+        }
+        document.getElementById("mainImage").src = images[currentIndex];
+      }
+    }
+
+   let selectedColor = 'MixPro Black';
+let currentColor = 'black';
+let currentIndex = 0;
+let startX = 0;
+
+function setColor(color) {
+  currentColor = color;
+  currentIndex = 0;
+  const images = productImagesByColor[color];
+  const mainImage = document.getElementById("mainImage");
+  const thumbnails = document.getElementById("thumbnailContainer");
+
+  selectedColor = color === 'black' ? 'MixPro Black' : 'MixPro White';
+  document.getElementById("colorName").textContent = selectedColor;
+
+  mainImage.src = images[0];
+  thumbnails.innerHTML = "";
+  images.forEach((img, index) => {
+    const thumb = document.createElement("img");
+    thumb.src = img;
+    thumb.className = "w-14 h-14 object-cover border rounded cursor-pointer hover:ring-2 hover:ring-blue-500";
+    thumb.onmouseenter = () => {
+      mainImage.src = img;
+      currentIndex = index;
+    };
+    thumbnails.appendChild(thumb);
+  });
+
+  document.getElementById("colorBlack").classList.remove("ring-2", "ring-blue-500");
+  document.getElementById("colorWhite").classList.remove("ring-2", "ring-blue-500");
+
+  if (color === "black") {
+    document.getElementById("colorBlack").classList.add("ring-2", "ring-blue-500");
+  } else {
+    document.getElementById("colorWhite").classList.add("ring-2", "ring-blue-500");
+  }
+}
+
+
+
+
+
+
+
+
+ 
+
+    window.onload = () => {
+      setColor('black');
+      const img = document.getElementById("mainImage");
+      img.addEventListener("touchstart", handleTouchStart, false);
+      img.addEventListener("touchend", handleTouchEnd, false);
+    };
+  </script>
+
+
+
+
+
+<style>
+@media (min-width: 1024px) {
+  .site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    padding: 0 60px;
+    background: rgba(0, 0, 0, 0.3); /* полупрозрачный фон */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 1000;
+  }
+
+  .site-header .logo {
+    width: 140px;
+    max-width: 100%;
+  }
+
+  .site-header nav {
+    display: flex;
+    gap: 40px;
+  }
+
+  .site-header nav a {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: white;
+    opacity: 0.7;
+    text-decoration: none;
+    transition: opacity 0.3s;
+  }
+
+  .site-header nav a:hover {
+    opacity: 1;
+  }
+}
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: rgba(0, 0, 0, 0.8); /* Полупрозрачный тёмный */
+  backdrop-filter: blur(10px);    /* Блюр заднего фона */
+  -webkit-backdrop-filter: blur(10px); /* Для Safari */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Белая линия снизу */
+  z-index: 1000; /* Поверх видео и контента */
+}
+
+
+
+
+
+
+
+
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body class="bg-white text-gray-800">
+<header class="site-header px-4 py-2 flex justify-between items-center bg-gray-900 bg-opacity-90">
+
+  <!-- ЛОГО СЛЕВА -->
+  <div class="flex items-center">
+    <a href="index.html">
+      <img src="img/lg.png" alt="SUBI Logo" class="logo w-28 md:w-32 lg:w-36" />
+    </a>
+  </div>
+
+
+  <!-- МЕНЮ СПРАВА: только на десктопе -->
+  <nav class="hidden md:flex space-x-8 text-white font-semibold text-sm tracking-widest uppercase">
+    <a href="index.html#catalog" class="hover:text-yellow-300 transition">Modelos</a>
+    <a href="#alquiler" class="hover:text-yellow-300 transition">Alquiler</a>
+    <a href="#contact" class="hover:text-yellow-300 transition">Contacto</a>
+    <a href="#nosotros" class="hover:text-yellow-300 transition">Sobre nosotros</a>
+    <a href="#faq" class="hover:text-yellow-300 transition">FAQ</a>
+  </nav>
+
+
+  
+</header>
+  <div class="max-w-7xl mx-auto px-4 py-6 pt-24">
+
+    <div class="flex flex-col lg:flex-row gap-6">
+      <div class="lg:w-1/2">
+        <div class="flex flex-col lg:flex-row gap-3">
+          <div id="thumbnailContainer" class="flex flex-row lg:flex-col gap-2 lg:mr-2 overflow-x-auto"></div>
+          <div class="flex-1">
+            <img id="mainImage" src="" alt="Main Product Image" class="w-full h-auto rounded shadow">
+            <p class="text-center text-sm mt-2 text-blue-600 underline cursor-pointer">Click to see full view</p>
+          </div>
+        </div>
+      </div>
+      <div class="lg:w-1/2 pb-28 lg:pb-0">
+        <h1 class="text-base sm:text-lg md:text-xl font-semibold mb-2 leading-snug">Mix Pro Dual Motor Underwater Scooter, 2 Speed Modes, 40 m Depth with Camera Mount and Low Battery Alarm for Pool</h1>
+        <div class="flex items-center mt-1">
+          <span class="text-yellow-500 text-base">★★★★☆</span>
+          <span class="text-blue-600 ml-2 text-sm">23 ratings</span>
+        </div>
+        <div class="text-2xl sm:text-3xl font-bold mt-2">€999<sup class="text-base sm:text-lg">.00</sup></div>
+
+        <div class="mt-4">
+          <span class="font-semibold text-sm">Colour Name:</span>
+          <span id="colorName" class="text-sm ml-1">MixPro Black</span>
+        </div>
+        <div class="flex gap-3 mt-2">
+          <div id="colorBlack" onclick="setColor('black')" class="w-20 h-16 border rounded cursor-pointer ring-2 ring-blue-500">
+            <img src="img/products/Mixpro/black/black1.webp" class="w-full h-full object-cover rounded" alt="Black">
+            <p class="text-center text-xs font-semibold">Black</p>
+          </div>
+          <div id="colorWhite" onclick="setColor('white')" class="w-20 h-16 border rounded cursor-pointer">
+            <img src="img/products/Mixpro/white/white1.webp" class="w-full h-full object-cover rounded" alt="White">
+            <p class="text-center text-xs font-semibold">White</p>
+          </div>
+        </div>
+
+        <ul class="list-disc list-inside mt-4 space-y-3 text-sm leading-relaxed">
+          <li><strong>DUAL SPEED & POWERFUL PERFORMANCE</strong> – Switch between two speeds: 4 ft/s (2.68 mph) or 6 ft/s (4.02 mph) for an adrenaline-filled adventure. Dual motors provide 11kgf thrust.</li>
+          <li><strong>LONG BATTERY LIFE & FAST RECHARGING</strong> – 60 mins intermittent use, 30 mins low speed, 20 mins high speed. Fast charge in 2 hours.</li>
+          <li><strong>Adjustable Buoyancy & Easy Operation</strong> – Detachable float, one-button use. Great for kids & adults.</li>
+          <li><strong>SMART FEATURES & DURABILITY</strong> – Waterproof up to 40 meters, LED battery indicator, top sealing tech.</li>
+          <li><strong>PORTABLE AND SAFE</strong> – Weighs 3.5kg, fits in backpack, air travel compliant, includes mounts.</li>
+        </ul>
+
+        <button onclick="addToCart()" class="mt-4 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-3 px-4 w-full rounded shadow">
+          Add to Cart
+        </button>
+
+        <div class="mt-4 flex flex-col sm:flex-row gap-3">
+          <button onclick="payWithStripe()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 w-full rounded shadow">
+  Pay with Card
+</button>
+
+          <button class="bg-gray-800 hover:bg-black text-white font-semibold py-3 px-4 w-full rounded shadow">
+            PayPal
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div id="paymentModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+  <div class="bg-white p-6 rounded-lg shadow max-w-sm w-full">
+    <h2 class="text-lg font-semibold mb-4">Enter your email to pay</h2>
+    <input id="emailInput" type="email" placeholder="you@example.com" class="w-full border p-2 rounded mb-4" />
+    <button onclick="submitPayment()" class="bg-blue-600 text-white w-full py-2 rounded hover:bg-blue-700">Pay €999.00</button>
+    <button onclick="closePaymentModal()" class="mt-3 text-sm text-gray-500 underline">Cancel</button>
+  </div>
+</div>
+
+  <script>
+    function addToCart() {
+      const item = {
+        id: "sublue001",
+        name: "MixPro",
+        price: 999.00,
+        qty: 1
+      };
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const exists = cart.find(p => p.id === item.id);
+      if (exists) {
+        exists.qty++;
+      } else {
+        cart.push(item);
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert("Added to cart");
+    }
+
+
+  function openProduct() {
+    window.location.href = 'mixpro.html';
+  }
+
+  function addToCart(event) {
+    event.stopPropagation();
+    const item = {
+      id: "sublue001",
+      name: "Sublue Mix Pro",
+      price: 999.00,
+      qty: 1
+    };
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const exists = cart.find(p => p.id === item.id);
+    if (exists) {
+      exists.qty++;
+    } else {
+      cart.push(item);
+    }
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert("Añadido al carrito");
+  }
+
+function openPaymentModal() {
+    document.getElementById('paymentModal').classList.remove('hidden');
+  }
+
+  function closePaymentModal() {
+    document.getElementById('paymentModal').classList.add('hidden');
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+async function payWithStripe() {
+  const product = {
+    name: `Sublue Mix Pro - ${selectedColor}`, // включаем цвет
+    description: "Dual motor underwater scooter, 60 min battery, camera mount, 40m depth",
+    price: 999 // цена в центах (999 евро = 99900)
+    // image: "https://yourdomain.com/path/to/image.jpg" // опционально
+  };
+
+  try {
+    const response = await fetch("http://192.168.1.118:4242/create-checkout-session", {
+
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ product })
+    });
+
+    const data = await response.json();
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      alert("Ошибка: " + data.error);
+    }
+  } catch (error) {
+    alert("Ошибка при создании Stripe-сессии: " + error.message);
+  }
+}
+
+
+
+  
+window.onload = () => {
+  setColor('black');
+  const img = document.getElementById("mainImage");
+  img.addEventListener("touchstart", handleTouchStart, false);
+  img.addEventListener("touchend", handleTouchEnd, false);
+};
+
+
+
+
+  </script>
+
+
+
+
+
+</body>
+</html>
