@@ -558,9 +558,27 @@ body {
 <div id="catalog" class="catalog-section"><div id="catalog" class="bg-white py-8 px-4">
 
   <div class="max-w-6xl mx-auto">
-    <h2 class="text-4xl font-bold text-black text-center leading-tight mb-6" style="font-family: 'Playfair Display', serif;">
-  Catálogo
+   <h2 class="text-4xl font-bold text-black text-center leading-tight mb-6 animate-fade-in-scale" style="font-family: 'Playfair Display', serif;">
+  Elige tu Sublue y vive la libertad bajo el agua
 </h2>
+
+<style>
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-fade-in-scale {
+  animation: fadeInScale 1s ease forwards;
+}
+</style>
+
 
 
     <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-3">
