@@ -29,7 +29,10 @@
       <a href="index.html#faq" class="hover:text-yellow-300 transition">FAQ</a>
     </nav>
   </header>
-<div id="orderProductsDetails" class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6"></div>
+
+  <div id="orderProductsDetails" class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6"></div>
+
+
   <!-- Контент -->
   <div class="max-w-4xl mx-auto px-6 py-12 text-center">
     <h1 class="text-3xl md:text-5xl font-bold font-['Playfair_Display'] text-green-600 mb-6">¡Gracias por tu compra!</h1>
@@ -91,7 +94,6 @@
         const deliveryDate = document.createElement('p');
         deliveryDate.textContent = `Fecha de entrega: ${item.price.product.metadata?.deliveryDate || 'N/A'}`;
 
-        // Парсим серийные номера
         let serialNumbers = [];
         try {
           serialNumbers = JSON.parse(item.price.product.metadata?.serialNumbers || '[]');
@@ -122,9 +124,6 @@
     } else {
       container.textContent = 'No se encontraron productos.';
     }
-
-    // Можно обновить остальные поля email, shipping и т.п. здесь тоже
-
   } catch (err) {
     console.error('Error loading session:', err);
   }
